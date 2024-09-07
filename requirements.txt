@@ -1,0 +1,24 @@
+# Gradio for building the web interface
+gradio==3.28.3
+
+# Hugging Face Transformers for text generation (GPT-Neo)
+transformers==4.34.0
+
+# Hugging Face Diffusers for Stable Diffusion image generation
+diffusers==0.19.3
+
+# PyTorch for running Transformers and Diffusers models
+torch==2.0.1
+
+# MoviePy for video generation and stitching
+moviepy==1.0.3
+
+# edge-tts for generating Text-to-Speech (TTS)
+edge-tts==6.1.12  # Updated to a valid version
+
+# Additional libraries for handling various file formats
+Pillow==9.3.0  # For image processing
+numpy==1.24.0  # For handling arrays and video processing
+opencv-python==4.5.5.64  # For applying effects like screen shake in videos
+pydantic==1.10.12
+wcwidth==0.2.5
