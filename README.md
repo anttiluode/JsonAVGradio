@@ -82,8 +82,8 @@ After the video is created, the app automatically archives all project files (st
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/jsonav.git
-   cd jsonav
+   git clone https://github.com/anttiluode/jsonavgradio.git
+   cd jsonavgradio
    ```
 
 2. Install the necessary dependencies:
@@ -137,4 +137,4 @@ You can find all dependencies in the `requirements.txt` file.
 
 ## Conclusion
 
-The JSONAV app is a complete pipeline for turning a story prompt into an engaging video with AI-generated narration, dialogue, and images. By leveraging state-of-the-art AI tools like LM Studio, Stable Diffusion, and Edge TTS, JSONAV automates the entire process while allowing users to archive and revisit their projects at any time.
+The JSONAV app is a complete pipeline for turning a story prompt into an engaging video with AI-generated narration, dialogue, and images. By leveraging state-of-the-art AI tools like LM Studio, Stable Diffusion, and Edge TTS, JSONAV automates the entire process while allowing users to archive and revisit their projects at any time. 
