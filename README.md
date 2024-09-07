@@ -1,6 +1,10 @@
 
 # JSONAV: Story-to-Video Pipeline
 
+Now you too can make horrible AI videos with Gradio interface like this "spongebob" episode from heck: 
+
+[![Watch the demo on YouTube](https://img.youtube.com/vi/U5LVftuDb5g/0.jpg)](https://youtu.be/U5LVftuDb5g)
+
 JSONAV is an Gradio based automated app that generates a complete video with AI-generated narration, actor voices, and images based on a story structure provided in JSON format. The app combines several AI tools to bring a text-based story to life, including text-to-speech (TTS), image generation (using Stable Diffusion), and JSON-based structured storytelling.
 
 ## Overview of How It Works
@@ -114,18 +118,6 @@ The entire process revolves around the **JSON** structure, which consists of:
 The JSON structure allows the app to generate media assets that match the content of the story precisely.
 
 ---
-
-## Requirements
-
-The app relies on several Python libraries and AI models. Here's an updated list of the main requirements:
-
-### Python Packages
-- `gradio`: For the user interface.
-- `edge-tts`: For text-to-speech functionality.
-- `diffusers`: For Stable Diffusion image generation.
-- `moviepy`: For video stitching and rendering.
-- `torch`, `accelerate`: For handling AI model inference.
-- `requests`, `shutil`: For downloading models from Hugging Face.
 
 ### External Tools
 - **LM Studio**: A local AI server to handle story generation.
