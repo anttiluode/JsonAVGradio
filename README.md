@@ -1,7 +1,7 @@
 
 # JSONAV: Story-to-Video Pipeline
 
-JSONAV is an automated app that generates a complete video with AI-generated narration, actor voices, and images based on a story structure provided in JSON format. The app combines several AI tools to bring a text-based story to life, including text-to-speech (TTS), image generation (using Stable Diffusion), and JSON-based structured storytelling.
+JSONAV is an Gradio based automated app that generates a complete video with AI-generated narration, actor voices, and images based on a story structure provided in JSON format. The app combines several AI tools to bring a text-based story to life, including text-to-speech (TTS), image generation (using Stable Diffusion), and JSON-based structured storytelling.
 
 ## Overview of How It Works
 
