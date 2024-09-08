@@ -131,6 +131,15 @@ You can find all dependencies in the `requirements.txt` file.
 
 ---
 
+### Possible Errors and their causes
+
+Errors usually are either due to AI served by LM studio not following the JsonAV schema such as adding text to the beginning 
+or to the ending. Also, if Edge TTS returns corrupt mp3's (too short / 0 bytes) the system can error out. The TTS can have 
+odd symbols spoken out such as asterisk etc. The thing to do when these sorts of errors happens is to try again, to change 
+AI possibly. Often one run succeeds while another does not. 
+
+---
+
 ## Conclusion
 
 The JSONAV app is a complete pipeline for turning a story prompt into an engaging video with AI-generated narration, dialogue, and images. By leveraging state-of-the-art AI tools like LM Studio, Stable Diffusion, and Edge TTS, JSONAV automates the entire process while allowing users to archive and revisit their projects at any time. 
