@@ -136,7 +136,9 @@ You can find all dependencies in the `requirements.txt` file.
 Errors usually are either due to AI served by LM studio not following the JsonAV schema such as adding text to the beginning 
 or to the ending. Also, if Edge TTS returns corrupt mp3's (too short / 0 bytes) the system can error out. The TTS can have 
 odd symbols spoken out such as asterisk etc. The thing to do when these sorts of errors happens is to try again, to change 
-AI possibly. Often one run succeeds while another does not. 
+AI possibly. Often one run succeeds while another does not. Sometimes the mp3's that Edge TTS downloads once they have been 
+made are corrupt and they may hang in ffmpeg, if that happens you have to restart the app else - the files will be stuck in 
+organized assets instead of being deleted at the beginning of the process and the same error will repeat. 
 
 ---
 
