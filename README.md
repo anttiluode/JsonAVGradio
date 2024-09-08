@@ -112,6 +112,30 @@ After the video is created, the app automatically archives all project files (st
 
 ---
 
+## Prompting tips
+
+If you want the ai to write a long story, describe how many scenes you want. Like 30 scenes. To have that 
+long script, you have to have really long context window though. You can change that in LM studio. If you 
+have trouble with running out of memory, youc an turn off lm studio (eject ai model) after the story has been 
+generated. 
+
+---
+
+## What should be implemented
+
+This version uses stable diffusion 2-1 just for easy install. But naturally it would work better with flux. 
+On the comfyui version I usually use fluxNF4 for image generation. My graphics card (3060ti 12 gigs) puts a 
+upper limit on what i can use for generation. But if you have a beefy card, feel free to replace the image 
+generation with what ever - even video generation AI. ChatGPT can easily change the app to do that if you 
+paste or attach the app.py to it. It is good idea to use the mp3 length to set the length of the scene. 
+
+It would be cool if the jsonav format files could be shared, if there was some sort of web page perhaps 
+where they could be re rendered, forked, where AI would understand the scheme well enough that it could be 
+told to change X. Where AI voices were perhaps deepfake voices that could be changed etc. It is all doable, 
+just takes time. 
+
+---
+
 ## JSONAV Format
 
 The entire process revolves around the **JSON** structure, which consists of:
