@@ -164,6 +164,9 @@ AI possibly. Often one run succeeds while another does not. Sometimes the mp3's 
 made are corrupt and they may hang in ffmpeg, if that happens you have to restart the app else - the files will be stuck in 
 organized assets instead of being deleted at the beginning of the process and the same error will repeat. 
 
+If nothing else helps, you can organize and assemble the story yourself in video editor. But do note if you start another run 
+the assets may be deleted. 
+
 ---
 
 ## Conclusion
