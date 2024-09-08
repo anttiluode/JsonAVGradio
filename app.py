@@ -14,6 +14,7 @@ import numpy as np
 import gradio as gr
 import cv2
 from accelerate import Accelerator
+from pydub import AudioSegment
 
 # Directories to clean or create
 OUTPUT_JSON_DIR = "output_json"
@@ -22,10 +23,24 @@ IMAGES_OUTPUT_DIR = "output_images"
 ORGANIZED_ASSETS_DIR = "organized_assets"
 FINAL_VIDEO_DIR = "final_output"
 SAVED_PROJECTS_DIR = "saved_projects"
+SILENT_MP3_PATH = "path_to_silence.mp3"
 
 # Ensure the saved projects directory exists
 if not os.path.exists(SAVED_PROJECTS_DIR):
     os.makedirs(SAVED_PROJECTS_DIR)
+
+# Function to create silent MP3 if it doesn't exist
+def create_silent_audio_if_not_exists(duration_ms=5000, path=SILENT_MP3_PATH):
+    if not os.path.exists(path):
+        print(f"Silent MP3 does not exist, creating {path}...", flush=True)
+        silence = AudioSegment.silent(duration=duration_ms)
+        silence.export(path, format="mp3")
+        print(f"Silent MP3 created at {path}", flush=True)
+    else:
+        print(f"Silent MP3 already exists at {path}", flush=True)
+
+# Call the function at the start of the script to ensure the silent audio file exists
+create_silent_audio_if_not_exists()
 
 # Clean up directories at the start to avoid mix-ups from old files
 def cleanup_directories(directories):
@@ -315,6 +330,7 @@ def apply_screen_shake(clip, screen, fps=24, intensity=5):
 
 # Step 5: Stitch assets and ensure the narration and actor audio are properly layered
 
+# Stitch assets and ensure the narration and actor audio are properly layered
 def stitch_assets(json_story_path, apply_shake_effect=False):
     print("Starting video stitching with proper audio layering...", flush=True)
     start_time = time.time()
@@ -337,25 +353,29 @@ def stitch_assets(json_story_path, apply_shake_effect=False):
 
         # Load the narration audio
         narration_audio_path = f"{ORGANIZED_ASSETS_DIR}/scene_{scene_number:02d}_narration.mp3"
-        if os.path.exists(narration_audio_path):
-            # Load the narration audio to get its duration
-            narration_audio_clip = AudioFileClip(narration_audio_path)
-            scene_duration = narration_audio_clip.duration
-            print(f"Setting scene duration to match narration length: {scene_duration} seconds")
+        try:
+            if os.path.exists(narration_audio_path):
+                # Try to load the narration audio to get its duration
+                narration_audio_clip = AudioFileClip(narration_audio_path)
+                scene_duration = narration_audio_clip.duration
+                print(f"Setting scene duration to match narration length: {scene_duration} seconds")
+            else:
+                raise FileNotFoundError(f"Narration audio file {narration_audio_path} not found.")
+        except Exception as e:
+            # If there's any issue with the narration audio, fallback to silent audio
+            print(f"[ERROR] Narration audio error for scene {scene_number}: {e}. Using silent audio.")
+            scene_duration = 5  # Set a default duration for the scene
+            narration_audio_clip = AudioFileClip("path_to_silence.mp3").set_duration(scene_duration)
 
-            # Create the scene image clip with the same duration as the narration
-            scene_image_clip = ImageClip(image_path).set_duration(scene_duration)
-            scene_image_clip = scene_image_clip.set_audio(narration_audio_clip)
+        # Create the scene image clip with the same duration as the narration
+        scene_image_clip = ImageClip(image_path).set_duration(scene_duration)
+        scene_image_clip = scene_image_clip.set_audio(narration_audio_clip)
 
-            # Apply shake effect to the scene image clip if enabled
-            if apply_shake_effect:
-                print("Applying shake effect to scene image...")
-                screen = Screen()
-                scene_image_clip = apply_screen_shake(scene_image_clip, screen, intensity=5)  # Set shake intensity here
-
-        else:
-            print(f"[ERROR] Narration audio not found for scene {scene_number}")
-            continue
+        # Apply shake effect to the scene image clip if enabled
+        if apply_shake_effect:
+            print("Applying shake effect to scene image...")
+            screen = Screen()
+            scene_image_clip = apply_screen_shake(scene_image_clip, screen, intensity=5)  # Set shake intensity here
 
         # List to hold the actor dialogue clips
         actor_clips = []
@@ -372,26 +392,32 @@ def stitch_assets(json_story_path, apply_shake_effect=False):
 
             # Load the actor's dialogue audio
             actor_audio_path = f"{ORGANIZED_ASSETS_DIR}/scene_{scene_number:02d}_{actor_name}.mp3"
-            if os.path.exists(actor_audio_path):
-                # Load the dialogue audio to get its duration
-                actor_audio_clip = AudioFileClip(actor_audio_path)
-                dialogue_duration = actor_audio_clip.duration
-                print(f"Setting actor portrait duration to match dialogue length: {dialogue_duration} seconds")
+            try:
+                if os.path.exists(actor_audio_path):
+                    # Try to load the dialogue audio to get its duration
+                    actor_audio_clip = AudioFileClip(actor_audio_path)
+                    dialogue_duration = actor_audio_clip.duration
+                    print(f"Setting actor portrait duration to match dialogue length: {dialogue_duration} seconds")
+                else:
+                    raise FileNotFoundError(f"Dialogue audio file {actor_audio_path} not found.")
+            except Exception as e:
+                # If there's any issue with the actor dialogue audio, fallback to silent audio
+                print(f"[ERROR] Dialogue audio error for {actor_name} in scene {scene_number}: {e}. Using silent audio.")
+                dialogue_duration = 5  # Set a default duration for actor portrait
+                actor_audio_clip = AudioFileClip("path_to_silence.mp3").set_duration(dialogue_duration)
 
-                # Create the actor portrait image clip with the same duration as the dialogue
-                actor_image_clip = ImageClip(actor_image_path).set_duration(dialogue_duration)
-                actor_image_clip = actor_image_clip.set_audio(actor_audio_clip)
+            # Create the actor portrait image clip with the same duration as the dialogue
+            actor_image_clip = ImageClip(actor_image_path).set_duration(dialogue_duration)
+            actor_image_clip = actor_image_clip.set_audio(actor_audio_clip)
 
-                # Apply shake effect to the actor portrait clip if enabled
-                if apply_shake_effect:
-                    print("Applying shake effect to actor clip...")
-                    screen = Screen()
-                    actor_image_clip = apply_screen_shake(actor_image_clip, screen, intensity=5)  # Set shake intensity here
+            # Apply shake effect to the actor portrait clip if enabled
+            if apply_shake_effect:
+                print("Applying shake effect to actor clip...")
+                screen = Screen()
+                actor_image_clip = apply_screen_shake(actor_image_clip, screen, intensity=5)  # Set shake intensity here
 
-                # Add actor clip to the list
-                actor_clips.append(actor_image_clip)
-            else:
-                print(f"[ERROR] Dialogue audio not found for {actor_name} in scene {scene_number}")
+            # Add actor clip to the list
+            actor_clips.append(actor_image_clip)
 
         # Concatenate actor clips after the scene image
         if actor_clips:
@@ -411,7 +437,6 @@ def stitch_assets(json_story_path, apply_shake_effect=False):
 
     print(f"Video stitching completed in {time.time() - start_time:.2f} seconds.", flush=True)
     return final_video_path
-
 
 # Main pipeline function
 def run_pipeline(story_prompt, apply_shake):
