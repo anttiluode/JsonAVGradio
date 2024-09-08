@@ -116,8 +116,8 @@ After the video is created, the app automatically archives all project files (st
 
 If you want the ai to write a long story, describe how many scenes you want. Like 30 scenes. To have that 
 long script, you have to have really long context window though. You can change that in LM studio. If you 
-have trouble with running out of memory, youc an turn off lm studio (eject ai model) after the story has been 
-generated. 
+have trouble with running out of memory, you can turn off lm studio (eject ai model) after the story has been 
+generated as the lm studio ai model is not needed when images are being generated. 
 
 ---
 
