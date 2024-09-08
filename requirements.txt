@@ -31,3 +31,7 @@ wcwidth==0.2.5
 
 # Accelerate for managing hardware and optimizing Hugging Face pipelines (version 0.20.3 or higher)
 accelerate==0.20.3
+
+#added ability to create silence if Edge TTS has corrupt mp3's so they can be replaced with silence
+
+pydub
