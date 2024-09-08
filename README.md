@@ -158,14 +158,9 @@ You can find all dependencies in the `requirements.txt` file.
 ### Possible Errors and their causes
 
 Errors usually are either due to AI served by LM studio not following the JsonAV schema such as adding text to the beginning 
-or to the ending. Also, if Edge TTS returns corrupt mp3's (too short / 0 bytes) the system can error out. The TTS can have 
-odd symbols spoken out such as asterisk etc. The thing to do when these sorts of errors happens is to try again, to change 
-AI possibly. Often one run succeeds while another does not. Sometimes the mp3's that Edge TTS downloads once they have been 
-made are corrupt and they may hang in ffmpeg, if that happens you have to restart the app else - the files will be stuck in 
-organized assets instead of being deleted at the beginning of the process and the same error will repeat. 
+or to the ending. There was a error that AI might write dialogue to be empty "". In those bits the stiching would fail. I 
+added a thing to the code where pydub creates a silent mp3 and those are stitched togeter where the mp3 fails (is 0 bytes)
 
-If nothing else helps, you can organize and assemble the story yourself in video editor. But do note if you start another run 
-the assets may be deleted. 
 
 ---
 
