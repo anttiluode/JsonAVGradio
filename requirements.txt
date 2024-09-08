@@ -29,5 +29,5 @@ pydantic==1.10.12
 # wcwidth for handling terminal width in text-based UIs
 wcwidth==0.2.5
 
-# Accelerate for managing hardware and optimizing Hugging Face pipelines
-accelerate==0.19.0
+# Accelerate for managing hardware and optimizing Hugging Face pipelines (version 0.20.3 or higher)
+accelerate==0.20.3
