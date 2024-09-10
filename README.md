@@ -106,9 +106,22 @@ After the video is created, the app automatically archives all project files (st
 4. Run the app:
    ```bash
    python app.py
+
    ```
+   Open http://127.0.0.1:7860/ web page to see the gradio app. 
+
 
    When running for the first time, the app will automatically download necessary models from Hugging Face, including the Stable Diffusion model used for image generation.
+
+## I added stitch.py - What it does. 
+
+Stitch.py is another way of doing stories. You can generate the story with AI like ChatGPT (that understands the format the best when you 
+copy and paste to it example of how the schema works). Then you can put that to output_json/story.json folder. Then once you load stitch.py
+with python stitch.py and open the http://127.0.0.1:7860/ gradio page. You can generate stories without using LM Studio, but do note if you 
+have files in organized_assets tts_output output_images empty them first so the stitching process wont use images / sounds from previous 
+projects as the stitch.py does not clean folders like the app.py in the beginning (beacuse we want to have story.json for example if 
+app.py could not read it. I use this because lm studio does not always produce good story.json files and i can ask chatgpt to fix them 
+and generate the story even when lm_studio story.json is erronous. 
 
 ---
 
