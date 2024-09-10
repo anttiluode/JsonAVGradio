@@ -1,9 +1,3 @@
-# This just stitches the story together if you generate it with something else than lm studio, like chatgpt.
-# You can ask chatgpt to generate the story after pasting it the guide how to write a jsonav story. 
-# Then just run this, open the gradio app and and enter the location of the json av story. (your drive output_json/story.json)
-# it downloads the tts from edge TTS servers and then makes the images with stable diffusion 2.1 
-# if you have not used stable diffusion before it will download the weights from hugginface. 
-
 import os
 import json
 import shutil
@@ -91,9 +85,6 @@ def apply_screen_shake(clip, screen, fps=24, intensity=5):
         return shaken_frame
     
     return clip.fl(shake_frame)
-
-# Make sure to use this Screen class and the shake function in your stitching process
-
 
 # Function to create silent MP3 if it doesn't exist
 def create_silent_audio_if_not_exists(duration_ms=5000, path=SILENT_MP3_PATH):
